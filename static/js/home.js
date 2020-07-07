@@ -11,10 +11,19 @@ function ageInDays(){
     document.getElementById('flex-box-result').appendChild(h1);
 }
 
-function genrateCat(){
-    var imge=document.createElement('img')
-    var div=document.getElementById('flex-cat-add')
-    imge.src="static/images/cat.jpg"
-    div.appendChild(imge)
+function rpsGame(yourChoice){
+    console.log(yourChoice)
+    var humanChoice, botChoice
+    humanChoice=yourChoice.id
+    botChoice=numberToChoice(randToRpsInt())
+    console.log(botChoice)
+    rpsFrontEnd(yourChoice.id,botChoice,message)
+}
 
+function randToRpsInt(){
+    return Math.floor(Math.random()*3)
+}
+
+function numberToChoice(number){
+    return ['rock','paper', 'scissors'][number]
 }
