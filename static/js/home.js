@@ -1,5 +1,5 @@
-
-
+//---------------Game 1 ----------------------
+// function to get humanchoice and botchoice
 function rpsGame(yourChoice){
     console.log(yourChoice)
     var humanChoice, botChoice
@@ -17,14 +17,17 @@ function rpsGame(yourChoice){
     rpsFrontEnd(yourChoice.id,botChoice,message)
 }
 
+// random choice genrator
 function randToRpsInt(){
     return Math.floor(Math.random()*3)
 }
 
+// random number to choice converter
 function numberToChoice(number){
     return ['rock','paper', 'scissors'][number]
 }
 
+// decide the winner as per human choice and botchoice
 function decideWinner(yourChoice, computerChoice){
     var rpsDatabase={
         'rock':{'scissors':1,'rock':0.5,'paper':0},
@@ -38,6 +41,7 @@ function decideWinner(yourChoice, computerChoice){
     return [yourScore, computerScore]
 }
 
+// display the final output messages
 function finalMessage([yourScore, computerScore]){
     if(yourScore===0){
         return {'message':'You lost!', 'color':'red'}
@@ -50,6 +54,7 @@ function finalMessage([yourScore, computerScore]){
     
 }
 
+// change the front end as per the result
 function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage){
     var imageDatabase={
         'rock':document.getElementById('rock').src,
@@ -75,4 +80,6 @@ function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage){
     document.getElementById('flex-box-rps-div').appendChild(messageDiv)
     document.getElementById('flex-box-rps-div').appendChild(botDiv)
     
-}  
+} 
+
+//---------------------Game 2 ------------------------
