@@ -83,3 +83,23 @@ function rpsFrontEnd(humanImageChoice, botImageChoice, finalMessage){
 } 
 
 //---------------------Game 2 ------------------------
+
+let blackjackGame={
+    'you':{'scoreSpan':'#your-blackjack-result','div':'#your-box','score':0},
+    'dealer':{'scoreSpan':'#dealer-blackjack-result','div':'#dealer-box', 'score':0},
+
+}
+
+const YOU= blackjackGame['you']
+const DEALER= blackjackGame['dealer']
+
+const hitSound= new Audio('../sound/swish.m4a')
+
+document.querySelector('#blackjack-hit-btn').addEventListener('click',blackjackHit)
+
+function blackjackHit(){
+    let cardImage=document.createElement('img')
+    cardImage.src='../images/Q.png'
+    document.querySelector(YOU['div']).appendChild(cardImage)
+    hitSound.play()
+}
