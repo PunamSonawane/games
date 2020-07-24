@@ -88,6 +88,7 @@ let blackjackGame={
     'you':{'scoreSpan':'#your-blackjack-result','div':'#your-box','score':0},
     'dealer':{'scoreSpan':'#dealer-blackjack-result','div':'#dealer-box', 'score':0},
     'cards':['2','3','4','5','6','7','8','9','10','k','J','Q','A'],
+    'cardMap':{'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9,'10':10,'k':10,'J':10,'Q':10,'A':[1,11]},
 }
 
 const YOU= blackjackGame['you']
@@ -100,8 +101,11 @@ document.querySelector('#blackjack-deal-btn').addEventListener('click',blackjack
 
 function blackjackHit(){
 let card=randomCard()
-console.log(card)
+//console.log(card)
 showCard(card,DEALER)
+
+updateScore(card,DEALER)
+showScore(DEALER)
 }
 
 function randomCard(){
@@ -110,10 +114,12 @@ function randomCard(){
 }
 
 function showCard(card,activePlayer){
+    if(activePlayer['score']<=21){
     let cardImage=document.createElement('img')
     cardImage.src=`../images/${card}.png`
     document.querySelector(activePlayer['div']).appendChild(cardImage)
     hitSound.play()
+    }
 }
 
 //clear the cards (reset)
@@ -128,4 +134,37 @@ function blackjackDeal(){
         dealerImages[i].remove();
     } 
     console.log(yourImages)
+    YOU['score']=0
+    DEALER['score']=0
+    document.querySelector('#your-blackjack-result').textContent=0
+    document.querySelector('#dealer-blackjack-result').textContent=0
+    document.querySelector('#your-blackjack-result').style.color='#ffffff'
+    document.querySelector('#dealer-blackjack-result').style.color='#ffffff'
+}
+
+function updateScore(card, activePlayer){
+if(card==='A')
+{
+    if (activePlayer['score'] + blackjackGame['cardMap'][card][1]<=21){
+        activePlayer['score']+=blackjackGame['cardMap'][card][1]
+        console.log(activePlayer['score'])
+    }else{
+        activePlayer['score']+=blackjackGame['cardMap'][card][0]
+        console.log(activePlayer['score'])
+    }
+}else{
+    activePlayer['score']+=blackjackGame['cardMap'][card]
+    console.log(activePlayer['score'])
+}
+
+
+}
+
+function showScore(activePlayer){
+    if(activePlayer['score']>21){
+        document.querySelector(activePlayer['scoreSpan']).textContent='Burst!'
+        document.querySelector(activePlayer['scoreSpan']).style.color='Red'
+    }else{
+    document.querySelector(activePlayer['scoreSpan']).textContent=activePlayer['score']
+    }
 }
